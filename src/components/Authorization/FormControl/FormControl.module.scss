@@ -1,0 +1,43 @@
+.formInput {
+  max-width: 395px;
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  height: 45px;
+  box-sizing: border-box;
+  border: 1px solid #e4e4e4;
+  background-color: #f8f8f8;
+  padding-left: 12px;
+  outline: none;
+  font-size: 16px;
+  font-family: Roboto;
+  font-weight: 400;
+  line-height: 22px;
+  color: #454545;
+}
+
+.input::placeholder {
+  color: #999999;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.input:focus {
+  border: 1px solid #159aff;
+}
+
+.inputError:focus, .inputError {
+  border: 1px solid #ed1f1f;
+}
+
+.errorMessage {
+  position: absolute;
+  bottom: -18px;
+  left: 0;
+  font-size: 12px;
+  color: #ed1f1f;
+}

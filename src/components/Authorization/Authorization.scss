@@ -1,0 +1,92 @@
+.page-authorization {
+  background-size: cover;
+  max-width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.authorization-block {
+  max-width: 495px;
+  min-height: 520px;
+  width: 100%;
+  box-shadow: 0 0 9px 6px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  position: relative;
+
+  .authorization-block__content {
+    // width: 100%;
+    padding: 50px 50px 59px 50px;
+  }
+
+}
+
+.loginTitle {
+  margin-top: 34px;
+  color: #000000;
+  font-family: Roboto;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+.backLink {
+  position: absolute;
+  bottom: 17px;
+  left: 19px;
+}
+
+.loginBackLink {
+  color: #626262;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  text-decoration: none;
+}
+.loginBackLink:hover {
+  text-decoration: underline;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: #ffffff;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  text-transform: uppercase;
+  height: 45px;
+  background-color: #159aff;
+  border: none;
+}
+
+.btn:hover {
+  cursor: pointer;
+  box-shadow: 0 1px 6px 2px rgba(0,0,0,0.2);
+}
+
+.btn:active, .btn:focus {
+  outline: none;
+}
+
+.passwordEye {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 20px;
+  cursor: pointer;
+}
+
+.passwordEye img {
+  display: flex;
+  height: 100%;
+}

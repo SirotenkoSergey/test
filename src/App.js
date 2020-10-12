@@ -1,15 +1,11 @@
 import React from 'react';
 import './App.scss';
-import Bg from './assets/images/hh.png';
-
-const sectionStyle = {
-  backgroundImage: `url(${Bg})`
-}
+import Authorization from './components/Authorization/AuthorizationContainer';
 
 const App = (props) => {
   return (
-    <div className="App" style={sectionStyle}>
-
+    <div className="App" >
+      <Authorization />
     </div>
   );
 }
