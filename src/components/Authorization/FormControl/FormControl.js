@@ -15,22 +15,13 @@ export const Input = ({input, meta, ...props}) => {
 export const Password = ({input, meta, ...props}) => {
   const hasError =  meta.error && meta.touched;
 
-
-
-
   const showPassword = () => {
-    // if(props.type === 'password'){
-    //   props.type = 'text';
-    // } else {
-    //   props.type = 'password';
-    // }
-    // console.log(props.type)
+    showPassword(props.type)
   }
-
 
   return (
     <div className={c.formInput}>
-      <input  {...input} {...props} autoComplete="off" className={c.input + ' ' + (hasError ? c.inputError : '')} />
+      <input  {...input} {...props} autoComplete="off" type={props.type} className={c.input + ' ' + (hasError ? c.inputError : '')} />
       <span className='passwordEye' onClick={() => showPassword()}>
         <img src={eye} alt=""/>
       </span>

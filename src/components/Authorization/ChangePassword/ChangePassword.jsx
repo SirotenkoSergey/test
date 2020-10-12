@@ -7,18 +7,17 @@ import c from "./ChangePassword.module.scss";
 import arrow from "../../../assets/images/arrow-left.png";
 
 const ChangePasswordForm = (props) => {
-
-  const type = 'password';
-
+  debugger;
   return (
     <form onSubmit={props.handleSubmit} className={c.form}>
       <div className={c.form__item}>
         <Field
           name="newPassword"
-          type={`${type}`}
+          type={`${props.typePassword}`}
           component={Password}
           placeholder="New Password"
           validate={[required]}
+          showPassword={props.showPassword}
         />
       </div>
       <div className={c.form__item}>
@@ -51,7 +50,7 @@ const ChangePassword = (props) => {
   return (
     <div className={c.changePassword}>
       <div className={`loginTitle`}>Change Password</div>
-      <ChangePasswordReduxForm onSubmit={onSubmit} />
+      <ChangePasswordReduxForm onSubmit={onSubmit} typePassword={props.typePassword} showPassword={props.showPassword}/>
       <div className={`backLink`}>
         <NavLink to="/login" className={`loginBackLink`}>
           <img src={arrow} alt="" /> Back to login

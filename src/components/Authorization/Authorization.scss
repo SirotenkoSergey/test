@@ -16,10 +16,14 @@
   position: relative;
 
   .authorization-block__content {
-    // width: 100%;
     padding: 50px 50px 59px 50px;
   }
 
+  @media only screen and (max-width: 495px) {
+    .authorization-block__content {
+      padding: 50px 20px 59px 20px;
+    }
+  }
 }
 
 .loginTitle {
