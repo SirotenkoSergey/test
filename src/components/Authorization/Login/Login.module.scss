@@ -1,7 +1,11 @@
 .form {
   margin-top: 37px;
+  .form__item {
+    position: relative;
+  }
 
   .form__item:nth-child(2){
+
     margin-top: 22px;
   }
   .form__item:nth-child(3){
@@ -16,6 +20,10 @@
     position: absolute;
     left: 0;
     height: 15px;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0;
+    z-index: 5;
   }
 
   .form__checkboxLabel {
@@ -27,6 +35,22 @@
     font-size: 14px;
     font-weight: 400;
     line-height: 22px;
+    margin-left: 25px;
+    z-index: 1;
+  }
+
+  .form__checkboxLabel::after {
+    height: 3px;
+    width: 8px;
+    border-left: 2px solid;
+    border-bottom: 2px solid;
+    transform: translateY(-50%) rotate(-45deg);
+    left: -21px;
+    top: 50%;
+    display: none;
+    content: '';
+    position: absolute;
+    z-index: 2;
   }
 
   .form__checkboxLabel::before {
@@ -36,9 +60,14 @@
     background-color: #f8f8f8;
     position: absolute;
     content: '';
-    left: -15px;
+    left: -25px;
     top: 50%;
     transform: translateY(-50%);
+    z-index: 1;
+  }
+
+  .form__checkbox:checked +  .form__checkboxLabel::after {
+    display: block;
   }
 
 }

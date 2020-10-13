@@ -1,19 +1,19 @@
+import React from 'react';
 import { connect } from "react-redux";
-import { checkboxToggle } from "../../../redux/login-reducer";
 import Login from "./Login";
 
 const mapStateToProps = (state) => {
   return {
-    checkBoxValue: state.login.checkbox
+    typeLoginPassword: state.login.typeLoginPassword
   };
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    checkboxToggle: (value) => {
-      dispatch(checkboxToggle(value));
-    },
+class LoginContainer extends React.Component {
+
+  render() {
+      return (
+          <Login {...this.props} />
+      )
   }
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps)(LoginContainer);

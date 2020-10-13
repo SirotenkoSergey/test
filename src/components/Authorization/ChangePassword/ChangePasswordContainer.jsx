@@ -1,20 +1,18 @@
+import React from "react";
 import { connect } from "react-redux";
 import ChangePassword from "./ChangePassword";
-import { showPassword } from "../../../redux/login-reducer";
 
 
-const mapStateToProps = (state) => {
-  return {
-    typePassword: state.login.typePassword
-  };
-}
+class ChangePasswordContainer extends React.Component {
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    showPassword: (value) => {
-      dispatch(showPassword(value));
-    },
+  render() {
+    return (
+      <ChangePassword
+        {...this.props}
+
+      />
+    );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChangePassword);
+export default connect()(ChangePasswordContainer);
