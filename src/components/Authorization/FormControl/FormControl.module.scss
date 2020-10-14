@@ -48,3 +48,32 @@
   font-size: 12px;
   color: #ed1f1f;
 }
+
+.tooltip {
+  position: absolute;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  width: 100%;
+  bottom: 60px;
+  justify-content: center;
+  display: flex;
+  left: 0;
+  min-height: 75px;
+  background-color: #f8f8f8;
+}
+
+.tooltip__text {
+  position: relative;
+  font-size: 12px;
+}
+
+.tooltip__text::before {
+  content: '';
+  bottom: -48px;
+  position: absolute;
+  left: 0;
+  border: 20px solid transparent;
+  border-top: 20px solid #f8f8f8;
+}

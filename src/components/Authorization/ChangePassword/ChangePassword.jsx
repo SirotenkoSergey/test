@@ -2,8 +2,7 @@ import React from "react";
 import { NavLink, Redirect } from "react-router-dom";
 import { Form, Field } from "react-final-form";
 import {
-  passwordsMustMatch,
-  required,
+  required, newPassword
 } from "../../../utils/validation/validation";
 import { Password } from "../FormControl/FormControl";
 import c from "./ChangePassword.module.scss";
@@ -35,7 +34,16 @@ class ChangePasswordForm extends React.Component {
   render() {
     const { isShowNewPassword, isShowConfirmNewPassword } = this.state;
     return (
-      <Form onSubmit={(value) => console.log(value)}>
+      <Form
+        onSubmit={(value) => console.log(value)}
+        validate={(values) => {
+          const errors = {};
+          if (values.confirmNewPassword !== values.newPassword) {
+            errors.confirmNewPassword = "Must match";
+          }
+          return errors;
+        }}
+      >
         {({ handleSubmit }) => (
           <form onSubmit={handleSubmit} className={c.form}>
             <div className={c.form__item}>
@@ -45,7 +53,7 @@ class ChangePasswordForm extends React.Component {
                 type="password"
                 component={Password}
                 placeholder="New Password"
-                validate={this.composeValidators(required)}
+                validate={this.composeValidators(required, newPassword)}
               />
               <span
                 className="passwordEye"
@@ -60,7 +68,7 @@ class ChangePasswordForm extends React.Component {
                 types={isShowConfirmNewPassword ? "text" : "password"}
                 component={Password}
                 placeholder="Confirm New Password"
-                validate={this.composeValidators(required, passwordsMustMatch)}
+                validate={this.composeValidators(required)}
               />
               <span
                 className="passwordEye"

@@ -15,21 +15,12 @@ export const email = value => {
   return undefined;
 }
 
-export const passwordsMustMatch = (value, allValues) => {
-  debugger;
-  if (value !== allValues.newPassword) {
-    return 'Passwords do not match'
-  } else {
-    return undefined
+
+export const newPassword = (value) => {
+  if (value.length < 6){
+    return 'The password is too short'
   }
+  return undefined
+
 }
-
-// export const newPassword = (value) => {
-//   // 'The password must contain at least three character categories among the following: Uppercase characters (A-Z) Lowercase characters (a-z) Digits (0-9)'
-//   if (value.length < 6){
-//     return 'errorNewPassword'
-//   }
-//   return undefined
-
-// }
 
