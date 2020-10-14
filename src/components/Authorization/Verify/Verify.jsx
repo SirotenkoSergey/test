@@ -6,32 +6,45 @@ import { Input } from "../FormControl/FormControl";
 import c from "./Verify.module.scss";
 import arrow from "../../../assets/images/arrow-left.png";
 
-const VerifyForm = (props) => {
-  return (
-    <Form onSubmit={(value) => console.log(value)}>
-      {({ handleSubmit }) => (
-        <form onSubmit={handleSubmit} className={c.form}>
-          <div className={c.form__item}>
-            <Field
-              name="verify"
-              component={Input}
-              placeholder="Enter security code"
-              validate={required}
-            />
-          </div>
-          <div className={c.form__btn}>
-            <button type="submit" className={`btn`}>
-              Verify
-            </button>
-          </div>
-        </form>
-      )}
-    </Form>
-  );
-};
+class VerifyForm extends React.Component {
+  state = {
+    successRequest: false,
+  };
+
+  onSubmit = (value) => {
+    console.log(value);
+    this.setState({ successRequest: true });
+  };
+
+  render() {
+    if (this.state.successRequest) {
+      return <Redirect to="/login" />;
+    }
+    return (
+      <Form onSubmit={this.onSubmit}>
+        {({ handleSubmit }) => (
+          <form onSubmit={handleSubmit} className={c.form}>
+            <div className={c.form__item}>
+              <Field
+                name="verify"
+                component={Input}
+                placeholder="Enter security code"
+                validate={required}
+              />
+            </div>
+            <div className={c.form__btn}>
+              <button type="submit" className={`btn`}>
+                Verify
+              </button>
+            </div>
+          </form>
+        )}
+      </Form>
+    );
+  }
+}
 
 const Verify = (props) => {
-  if (false) return <Redirect to={"/login"} />;
   return (
     <div className={c.verify}>
       <div className={`loginTitle`}>Verify</div>

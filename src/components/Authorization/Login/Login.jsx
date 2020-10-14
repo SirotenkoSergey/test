@@ -1,7 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Form, Field } from "react-final-form";
-import { email, required, maxLengthControl } from "../../../utils/validation/validation";
+import {
+  email,
+  required,
+  maxLengthControl,
+} from "../../../utils/validation/validation";
 import { Input, Password } from "../FormControl/FormControl";
 import c from "./Login.module.scss";
 import eye from "../../../assets/images/eye.png";
@@ -16,8 +20,11 @@ class LoginForm extends React.Component {
     this.setState({ isShowPassword: !isShowPassword });
   };
 
-  composeValidators = (...validators) => value =>
-  validators.reduce((error, validator) => error || validator(value), undefined)
+  composeValidators = (...validators) => (value) =>
+    validators.reduce(
+      (error, validator) => error || validator(value),
+      undefined
+    );
 
   maxLength = maxLengthControl(60);
 
@@ -32,7 +39,11 @@ class LoginForm extends React.Component {
                 name="email"
                 component={Input}
                 placeholder="Email address"
-                validate={this.composeValidators(required, email, this.maxLength)}
+                validate={this.composeValidators(
+                  required,
+                  email,
+                  this.maxLength
+                )}
               />
             </div>
             <div className={c.form__item}>
