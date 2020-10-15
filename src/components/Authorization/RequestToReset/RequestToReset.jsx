@@ -5,11 +5,13 @@ import { email, required } from "../../../utils/validation/validation";
 import { Input } from "../FormControl/FormControl";
 import c from "./RequestToReset.module.scss";
 import arrow from "../../../assets/images/arrow-left.png";
+import ReCAPTCHA from "react-google-recaptcha";
 
+const recaptchaRef = React.createRef();
 class RequestToResetForm extends React.Component {
   state = {
     isRequestToLogin: false,
-  };
+  }; 
 
   reCaptchaVerify = (e) => {
     e.preventDefault();
@@ -20,9 +22,12 @@ class RequestToResetForm extends React.Component {
     });
   }
 
+  onChange = (value) => {
+    console.log("Captcha value:", value);
+  } 
 
   onSubmit = (value) => {
-    console.log(value);
+    recaptchaRef.current.execute();
     this.setState({ isRequestToLogin: true });
   }
 
@@ -47,6 +52,13 @@ class RequestToResetForm extends React.Component {
                 component={Input}
                 placeholder="Email address"
                 validate={this.composeValidators(required, email)}
+              />
+            </div>
+            <div>
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                size="invisible"
+                sitekey="Your client site key"
               />
             </div>
             <div className={c.form__btn}>

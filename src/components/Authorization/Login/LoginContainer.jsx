@@ -9,7 +9,6 @@ const mapStateToProps = (state) => {
 }
 
 class LoginContainer extends React.Component {
-
   render() {
       return (
           <Login {...this.props} />
