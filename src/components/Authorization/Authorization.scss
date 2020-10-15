@@ -17,12 +17,19 @@
 
   .authorization-block__content {
     padding: 50px 50px 59px 50px;
+    height: 100%;
   }
 
   @media only screen and (max-width: 495px) {
     .authorization-block__content {
       padding: 50px 20px 59px 20px;
     }
+  }
+}
+
+@media only screen and (max-width: 495px) {
+  .authorization-block {
+    min-height: 100%;
   }
 }
 
@@ -49,6 +56,7 @@
   line-height: 22px;
   text-decoration: none;
 }
+
 .loginBackLink:hover {
   text-decoration: underline;
 }
@@ -71,10 +79,11 @@
 
 .btn:hover {
   cursor: pointer;
-  box-shadow: 0 1px 6px 2px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 6px 2px rgba(0, 0, 0, 0.2);
 }
 
-.btn:active, .btn:focus {
+.btn:active,
+.btn:focus {
   outline: none;
 }
 
@@ -94,4 +103,25 @@
   display: flex;
   height: 100%;
   cursor: pointer;
+}
+
+.tooltip {
+  position: absolute;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  width: 100%;
+  bottom: 55px;
+  justify-content: center;
+  display: flex;
+  left: 0;
+  min-height: 75px;
+  background-color: #f8f8f8;
+  box-shadow: 0 2px 5px 2px rgba(0,0,0,0.2);
+}
+
+.tooltip__text {
+  position: relative;
+  font-size: 12px;
 }

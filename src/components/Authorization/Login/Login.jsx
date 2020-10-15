@@ -68,6 +68,13 @@ class LoginForm extends React.Component {
         {({ handleSubmit }) => (
           <form onSubmit={handleSubmit} className={c.form}>
             <div className={c.form__item}>
+              {submitError && (
+                <div className={`tooltip ${c.formError}`}>
+                  <div className={`tooltip__text ${c.formError__text}`}>
+                    {submitError}
+                  </div>
+                </div>
+              )}
               <Field
                 name="identifier"
                 component={Input}
