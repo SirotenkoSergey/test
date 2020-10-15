@@ -102,7 +102,11 @@ class LoginForm extends React.Component {
                 className="passwordEye"
                 onClick={() => this.toggleShowNewPassword()}
               >
-                <img src={eye} alt="" />
+                {isShowPassword ? (
+                  <img src={eyeOpen} alt="" />
+                ) : (
+                  <img src={eyeClose} alt="" />
+                )}
               </span>
             </div>
             <div className={c.form__item}>

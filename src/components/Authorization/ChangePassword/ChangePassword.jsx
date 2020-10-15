@@ -5,7 +5,8 @@ import { required, newPassword } from "../../../utils/validation/validation";
 import { Password } from "../FormControl/FormControl";
 import c from "./ChangePassword.module.scss";
 import arrow from "../../../assets/images/arrow-left.png";
-import eye from "../../../assets/images/eye.png";
+import eyeClose from "../../../assets/images/close-eye.png";
+import eyeOpen from "../../../assets/images/open-eye.png";
 
 class ChangePasswordForm extends React.Component {
   state = {
@@ -66,7 +67,11 @@ class ChangePasswordForm extends React.Component {
                 className="passwordEye"
                 onClick={() => this.toggleShowNewPassword()}
               >
-                <img src={eye} alt="" />
+                 {isShowNewPassword ? (
+                  <img src={eyeOpen} alt="" />
+                ) : (
+                  <img src={eyeClose} alt="" />
+                )}
               </span>
             </div>
             <div className={c.form__item}>
@@ -81,7 +86,11 @@ class ChangePasswordForm extends React.Component {
                 className="passwordEye"
                 onClick={() => this.toggleShowConfirmPassword()}
               >
-                <img src={eye} alt="" />
+                 {isShowConfirmNewPassword ? (
+                  <img src={eyeOpen} alt="" />
+                ) : (
+                  <img src={eyeClose} alt="" />
+                )}
               </span>
             </div>
             <div className={c.form__btn}>
