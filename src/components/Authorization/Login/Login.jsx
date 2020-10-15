@@ -8,7 +8,8 @@ import {
 } from "../../../utils/validation/validation";
 import { Input, Password } from "../FormControl/FormControl";
 import c from "./Login.module.scss";
-import eye from "../../../assets/images/eye.png";
+import eyeClose from "../../../assets/images/close-eye.png";
+import eyeOpen from "../../../assets/images/open-eye.png";
 import { FORM_ERROR } from "final-form";
 
 class LoginForm extends React.Component {
@@ -78,7 +79,11 @@ class LoginForm extends React.Component {
                 className="passwordEye"
                 onClick={() => this.toggleShowNewPassword()}
               >
-                <img src={eye} alt="" />
+                {isShowPassword ? (
+                  <img src={eyeOpen} alt="" />
+                ) : (
+                  <img src={eyeClose} alt="" />
+                )}
               </span>
             </div>
             <div className={c.form__item}>
@@ -93,7 +98,11 @@ class LoginForm extends React.Component {
               </label>
             </div>
             <div className={`form__btn ${c.form__btn}`}>
-              <button type="submit" className={`btn`} onClick={() => this.submitUserData()}>
+              <button
+                type="submit"
+                className={`btn`}
+                onClick={() => this.submitUserData()}
+              >
                 Submit
               </button>
             </div>
