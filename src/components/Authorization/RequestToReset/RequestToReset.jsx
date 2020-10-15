@@ -11,16 +11,7 @@ const recaptchaRef = React.createRef();
 class RequestToResetForm extends React.Component {
   state = {
     isRequestToLogin: false,
-  }; 
-
-  reCaptchaVerify = (e) => {
-    e.preventDefault();
-     this.grecaptcha.ready(function() {
-      this.grecaptcha.execute('6LcPUdcZAAAAAHkgp3H7Ce5YUeHSLFTy1QYkQY4J', {action: 'submit'}).then(function(token) {
-        console.log(token);
-      });
-    });
-  }
+  };
 
   onChange = (value) => {
     console.log("Captcha value:", value);
@@ -62,7 +53,7 @@ class RequestToResetForm extends React.Component {
               />
             </div>
             <div className={c.form__btn}>
-              <button type="submit" className={`btn`}>
+              <button type="submit" className={`btn`} >
                 reset password
               </button>
             </div>

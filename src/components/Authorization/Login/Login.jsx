@@ -9,6 +9,7 @@ import {
 import { Input, Password } from "../FormControl/FormControl";
 import c from "./Login.module.scss";
 import eye from "../../../assets/images/eye.png";
+import { FORM_ERROR } from "final-form";
 
 class LoginForm extends React.Component {
   state = {
@@ -28,13 +29,32 @@ class LoginForm extends React.Component {
 
   maxLength = maxLengthControl(60);
 
+  onSubmit = (value) => {
+    if (
+      value.email !== "erikras@sd.sd" ||
+      value.password !== "finalformrocks"
+    ) {
+      console.log("value");
+      return { [FORM_ERROR]: "Invalid Username or Password" };
+    } else {
+      console.log(value);
+    }
+  };
+
   render() {
     const { isShowPassword } = this.state;
     return (
-      <Form onSubmit={(value) => console.log(value)}>
-        {({ handleSubmit }) => (
+      <Form onSubmit={this.onSubmit}>
+        {({ handleSubmit, submitError }) => (
           <form onSubmit={handleSubmit} className={c.form}>
             <div className={c.form__item}>
+              {submitError && (
+                <div className={`tooltip ${c.formError}`}>
+                  <div className={`tooltip__text ${c.formError__text}`}>
+                    {submitError}
+                  </div>
+                </div>
+              )}
               <Field
                 name="email"
                 component={Input}
@@ -72,7 +92,7 @@ class LoginForm extends React.Component {
                 Remember me
               </label>
             </div>
-            <div className={`form__btn ${c.form__btn}`}> 
+            <div className={`form__btn ${c.form__btn}`}>
               <button type="submit" className={`btn`} onClick={() => this.submitUserData()}>
                 Submit
               </button>
