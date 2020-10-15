@@ -1,9 +1,7 @@
 import React from "react";
 import { NavLink, Redirect } from "react-router-dom";
 import { Form, Field } from "react-final-form";
-import {
-  required, newPassword
-} from "../../../utils/validation/validation";
+import { required, newPassword } from "../../../utils/validation/validation";
 import { Password } from "../FormControl/FormControl";
 import c from "./ChangePassword.module.scss";
 import arrow from "../../../assets/images/arrow-left.png";
@@ -13,6 +11,7 @@ class ChangePasswordForm extends React.Component {
   state = {
     isShowNewPassword: false,
     isShowConfirmNewPassword: false,
+    isRequestToLogin: false,
   };
 
   toggleShowNewPassword = () => {
@@ -31,11 +30,19 @@ class ChangePasswordForm extends React.Component {
       undefined
     );
 
+  onSubmit = (value) => {
+    console.log(value);
+    this.setState({ isRequestToLogin: true });
+  };
+
   render() {
+    if (this.state.isRequestToLogin) {
+      return <Redirect to="/login" />;
+    }
     const { isShowNewPassword, isShowConfirmNewPassword } = this.state;
     return (
       <Form
-        onSubmit={(value) => console.log(value)}
+        onSubmit={this.onSubmit}
         validate={(values) => {
           const errors = {};
           if (values.confirmNewPassword !== values.newPassword) {
@@ -90,7 +97,6 @@ class ChangePasswordForm extends React.Component {
 }
 
 const ChangePassword = (props) => {
-  if (false) return <Redirect to={"/login"} />;
   return (
     <div className={c.changePassword}>
       <div className={`loginTitle`}>Change Password</div>

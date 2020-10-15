@@ -7,7 +7,7 @@ const reducers = combineReducers({
   auth: authReducer,
 });
 
-
 const store = createStore(reducers);
+window.store = store;
 
 export default store;
