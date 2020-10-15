@@ -61,8 +61,8 @@ class LoginForm extends React.Component {
                 Remember me
               </label>
             </div>
-            <div className={`form__btn ${c.form__btn}`}>
-              <button type="submit" className={`btn`}>
+            <div className={`form__btn ${c.form__btn}`}> 
+              <button type="submit" className={`btn`} onClick={() => this.submitUserData()}>
                 Submit
               </button>
             </div>
