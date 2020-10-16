@@ -9,11 +9,22 @@ import {
 import { Input, Password } from "../FormControl/FormControl";
 import c from "./Login.module.scss";
 import eye from "../../../assets/images/eye.png";
+import { connect } from 'react-redux';
+import { login } from '../../../actions/Login'
 
 class LoginForm extends React.Component {
-  state = {
-    isShowPassword: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      identifier: '',
+      password: '',
+      errors: {},
+      ifLoading: false,
+      isShowPassword: false,
+    };
+
+    this.onSubmit = this.onSubmit.bind(this);
+  }
 
   toggleShowNewPassword = () => {
     const { isShowPassword } = this.state;
@@ -28,15 +39,34 @@ class LoginForm extends React.Component {
 
   maxLength = maxLengthControl(60);
 
+  onChange = (e) => {
+    console.log(this.state);
+    this.setState({ [e.target.name]: e.target.value })
+  }
+
+  onSubmit = (form) => {
+    this.setState({ 
+      errors: {}, 
+      isLoading: true, 
+      identifier: form.identifier, 
+      password: form.password
+    });
+
+    login(this.state).then(
+      (res) => this.context.router.push('/'),
+      (err) => this.setState({ errors: err.data.errors, isLoading: false})
+    )
+  } 
+
   render() {
-    const { isShowPassword } = this.state;
+    const { errors, identifier, password, isShowPassword } = this.state;
     return (
-      <Form onSubmit={(value) => console.log(value)}>
+      <Form onSubmit={(form) => this.onSubmit(form)}>
         {({ handleSubmit }) => (
           <form onSubmit={handleSubmit} className={c.form}>
             <div className={c.form__item}>
               <Field
-                name="email"
+                name="identifier"
                 component={Input}
                 placeholder="Email address"
                 validate={this.composeValidators(
@@ -44,6 +74,8 @@ class LoginForm extends React.Component {
                   email,
                   this.maxLength
                 )}
+                value={identifier}
+                //onChange = {this.onChange}
               />
             </div>
             <div className={c.form__item}>
@@ -53,6 +85,8 @@ class LoginForm extends React.Component {
                 types={isShowPassword ? "text" : "password"}
                 placeholder="Password"
                 validate={required}
+                value={password}
+                //onChange = {this.onChange}
               />
               <span
                 className="passwordEye"
@@ -73,7 +107,7 @@ class LoginForm extends React.Component {
               </label>
             </div>
             <div className={`form__btn ${c.form__btn}`}> 
-              <button type="submit" className={`btn`} onClick={() => this.submitUserData()}>
+              <button type="submit" className={`btn`}>
                 Submit
               </button>
             </div>
@@ -84,7 +118,7 @@ class LoginForm extends React.Component {
   }
 }
 
-const Login = (props) => {
+const LoginPage = (props) => {
   return (
     <div className={c.login}>
       <div className={`loginTitle`}>Sign in</div>
@@ -98,4 +132,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default connect(null, { login })(LoginPage);
