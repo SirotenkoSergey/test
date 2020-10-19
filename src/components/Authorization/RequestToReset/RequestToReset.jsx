@@ -10,32 +10,36 @@ import axios from 'axios';
 
 const recaptchaRef = React.createRef();
 class RequestToResetForm extends React.Component {
-  state = {
-    isRequestToLogin: false,
-    error: {},
-    message: {}
-  }; 
+  constructor(props) {
+    super(props);
+    this.state = {
+      isRequestToLogin: false,
+      error: {},
+      message: {}
+    }; 
+  }
 
-  reCaptchaVerify = (e) => {
+  /*reCaptchaVerify = (e) => {
     e.preventDefault();
      this.grecaptcha.ready(function() {
       this.grecaptcha.execute('6LcPUdcZAAAAAHkgp3H7Ce5YUeHSLFTy1QYkQY4J', {action: 'submit'}).then(function(token) {
         console.log(token);
       });
     });
-  }
+  }*/
 
   onChange = (value) => {
     console.log("Captcha value:", value);
   } 
 
   onSubmit = (form) => {
-    axios.post('http://192.168.0.14:8080/santiagoways_api/api/v1/forgot-password', {
-      ...form, recaptcha: '...'
+
+    axios.post('http://18.184.124.193/api/v1/forgot-password', {
+      ...form, recaptcha: recaptchaRef.current.getValue()
     }).then(res => {
-      res.data.success ? this.setState('message', res.data.messages) : this.setState('error', res.data.errors);
-    }).catch(function (err) {
-      this.setState('error', { 500: 'Initial server error'} );
+      res.data.success ? this.setState({ 'message': res.data.messages }) : this.setState({'error':  res.data.errors});
+    }).catch(err => {
+      this.setState({'error': { 500: 'Initial server error'} });
     });
   }
 
@@ -65,8 +69,7 @@ class RequestToResetForm extends React.Component {
             <div>
               <ReCAPTCHA
                 ref={recaptchaRef}
-                size="invisible"
-                sitekey="Your client site key"
+                sitekey="6Lf6FdgZAAAAANSZJMa6YoHTo1gRDcJEUjMN1a89"
               />
             </div>
             <div className={c.form__btn}>

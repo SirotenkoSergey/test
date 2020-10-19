@@ -9,8 +9,8 @@ import {
 import { Input, Password } from "../FormControl/FormControl";
 import c from "./Login.module.scss";
 import eye from "../../../assets/images/eye.png";
-import { connect } from 'react-redux';
 import axios from 'axios';
+import { setAuthUserData } from "../../../redux/auth-reducer";
 
 
 class LoginForm extends React.Component {
@@ -19,7 +19,8 @@ class LoginForm extends React.Component {
     this.state = {
       identifier: '',
       password: '',
-      errors: [],
+      error: {},
+      message: {},
       ifLoading: false,
       isShowPassword: false,
     };
@@ -45,15 +46,17 @@ class LoginForm extends React.Component {
   }
 
   onSubmit = (form) => {
-    axios.post('http://192.168.0.14:8080/santiagoways_api/api/v1/login', {
+    axios.post('http://18.184.124.193/api/v1/login', {
       identifier: form.identifier,
       password: form.password,
       remember: false
     }).then( res => {
       if(res.data.success) {
-        
+        this.props.setAuthUserData(res.data.id, this.data.email);
+        localStorage.getItem('token', this.data.access_token);
+        this.setState({'message': { success: 'success' }})
       } else {
-        this.setState('errors', res.data.errors );
+        this.setState({ 'error': res.data.errors });
       }
     });
   } 

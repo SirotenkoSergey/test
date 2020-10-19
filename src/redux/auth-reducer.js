@@ -6,9 +6,8 @@ const REDIRECT_TO_VERIFICATION = 'SET_USER_DATA';
 const initialState = {
   userId: null,
   email: null,
-  login: null,
   isAuth: false,
-  redirectVerification: false,
+  redirectVerification: false
 }
 
 const authReducer = (state = initialState, action) => {
@@ -31,8 +30,7 @@ const authReducer = (state = initialState, action) => {
 
 export const setRedirectVerification = () => ({type: REDIRECT_TO_VERIFICATION, redirectVerification: true});
 
-export const setAuthUserData = (userId, email, login, isAuth) => ({type: SET_USER_DATA, data:
-  {userId, email, login, isAuth}  });
+/*export const setAuthUserData = (userId, email, login) => ({type: SET_USER_DATA, data: {userId, email, login}  });
 
 export const getAuthUserData = () => (dispatch) => {
   authAPI.authMe()
@@ -59,10 +57,10 @@ export const requestPassword = () => (dispatch) => {
         dispatch(setRedirectVerification())
       };
     })
-}
+}*/
 
 
-export const setUserData = (userId, email, login) => ({ type: SET_USER_DATA, data: {userId, email, login} })
+export const setUserData = (userId, email) => ({ type: SET_USER_DATA, data: {userId, email} })
 
 
 export default authReducer;
