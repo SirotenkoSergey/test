@@ -10,7 +10,8 @@ import { Input, Password } from "../FormControl/FormControl";
 import c from "./Login.module.scss";
 import eye from "../../../assets/images/eye.png";
 import { connect } from 'react-redux';
-import { login } from '../../../actions/Login'
+import axios from 'axios';
+
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class LoginForm extends React.Component {
     this.state = {
       identifier: '',
       password: '',
-      errors: {},
+      errors: [],
       ifLoading: false,
       isShowPassword: false,
     };
@@ -40,22 +41,21 @@ class LoginForm extends React.Component {
   maxLength = maxLengthControl(60);
 
   onChange = (e) => {
-    console.log(this.state);
     this.setState({ [e.target.name]: e.target.value })
   }
 
   onSubmit = (form) => {
-    this.setState({ 
-      errors: {}, 
-      isLoading: true, 
-      identifier: form.identifier, 
-      password: form.password
+    axios.post('http://192.168.0.14:8080/santiagoways_api/api/v1/login', {
+      identifier: form.identifier,
+      password: form.password,
+      remember: false
+    }).then( res => {
+      if(res.data.success) {
+        
+      } else {
+        this.setState('errors', res.data.errors );
+      }
     });
-
-    login(this.state).then(
-      (res) => this.context.router.push('/'),
-      (err) => this.setState({ errors: err.data.errors, isLoading: false})
-    )
   } 
 
   render() {
@@ -106,6 +106,7 @@ class LoginForm extends React.Component {
                 Remember me
               </label>
             </div>
+            <div></div>
             <div className={`form__btn ${c.form__btn}`}> 
               <button type="submit" className={`btn`}>
                 Submit
@@ -129,7 +130,7 @@ const LoginPage = (props) => {
         </NavLink>
       </div>
     </div>
-  );
+  );  
 };
 
-export default connect(null, { login })(LoginPage);
+export default LoginPage;

@@ -6,11 +6,14 @@ import { Input } from "../FormControl/FormControl";
 import c from "./RequestToReset.module.scss";
 import arrow from "../../../assets/images/arrow-left.png";
 import ReCAPTCHA from "react-google-recaptcha";
+import axios from 'axios';
 
 const recaptchaRef = React.createRef();
 class RequestToResetForm extends React.Component {
   state = {
     isRequestToLogin: false,
+    error: {},
+    message: {}
   }; 
 
   reCaptchaVerify = (e) => {
@@ -26,9 +29,14 @@ class RequestToResetForm extends React.Component {
     console.log("Captcha value:", value);
   } 
 
-  onSubmit = (value) => {
-    recaptchaRef.current.execute();
-    this.setState({ isRequestToLogin: true });
+  onSubmit = (form) => {
+    axios.post('http://192.168.0.14:8080/santiagoways_api/api/v1/forgot-password', {
+      ...form, recaptcha: '...'
+    }).then(res => {
+      res.data.success ? this.setState('message', res.data.messages) : this.setState('error', res.data.errors);
+    }).catch(function (err) {
+      this.setState('error', { 500: 'Initial server error'} );
+    });
   }
 
   composeValidators = (...validators) => (value) =>
