@@ -5,15 +5,29 @@ import { required } from "../../../utils/validation/validation";
 import { Input } from "../FormControl/FormControl";
 import c from "./Verify.module.scss";
 import arrow from "../../../assets/images/arrow-left.png";
+import axios from 'axios';
+import { useSelector } from "react-redux";
 
 class VerifyForm extends React.Component {
   state = {
     successRequest: false,
+    error: {},
+    message: {}
   };
 
-  onSubmit = (value) => {
-    console.log(value);
-    this.setState({ successRequest: true });
+  onSubmit = (form) => {
+    userId = useSelector(state => state.auth.userId)
+    axios.post('http://18.184.124.193/api/v1/change-password', {
+      ...form, userId
+    }).then(res => {
+      if(res.data.success) {
+
+      }else{
+        this.setState({'error': res.data.error });
+      }
+    }).catch( () => {
+      this.setState({'error': { 500: 'Initial server error' } });
+    });
   };
 
   render() {

@@ -10,12 +10,23 @@ import { Input, Password } from "../FormControl/FormControl";
 import c from "./Login.module.scss";
 import eyeClose from "../../../assets/images/close-eye.png";
 import eyeOpen from "../../../assets/images/open-eye.png";
-import { FORM_ERROR } from "final-form";
+import axios from 'axios';
+import { setAuthUserData } from "../../../redux/auth-reducer";
 
 class LoginForm extends React.Component {
-  state = {
-    isShowPassword: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      identifier: '',
+      password: '',
+      error: {},
+      message: {},
+      ifLoading: false,
+      isShowPassword: false,
+    };
+
+    this.onSubmit = this.onSubmit.bind(this);
+  }
 
   toggleShowNewPassword = () => {
     const { isShowPassword } = this.state;
@@ -30,23 +41,31 @@ class LoginForm extends React.Component {
 
   maxLength = maxLengthControl(60);
 
-  onSubmit = (value) => {
-    if (
-      value.email !== "erikras@sd.sd" ||
-      value.password !== "finalformrocks"
-    ) {
-      console.log("value");
-      return { [FORM_ERROR]: "Invalid Username or Password" };
-    } else {
-      console.log(value);
-    }
-  };
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value })
+  }
+
+  onSubmit = (form) => {
+    axios.post('http://18.184.124.193/api/v1/login', {
+      identifier: form.identifier,
+      password: form.password,
+      remember: false
+    }).then( res => {
+      if(res.data.success) {
+        this.props.setAuthUserData(res.data.id, this.data.email);
+        localStorage.getItem('token', this.data.access_token);
+        this.setState({'message': { success: 'success' }})
+      } else {
+        this.setState({ 'error': res.data.errors });
+      }
+    });
+  }
 
   render() {
-    const { isShowPassword } = this.state;
+    const { errors, identifier, password, isShowPassword } = this.state;
     return (
-      <Form onSubmit={this.onSubmit}>
-        {({ handleSubmit, submitError }) => (
+      <Form onSubmit={(form) => this.onSubmit(form)}>
+        {({ handleSubmit }) => (
           <form onSubmit={handleSubmit} className={c.form}>
             <div className={c.form__item}>
               {submitError && (
@@ -57,7 +76,7 @@ class LoginForm extends React.Component {
                 </div>
               )}
               <Field
-                name="email"
+                name="identifier"
                 component={Input}
                 placeholder="Email address"
                 validate={this.composeValidators(
@@ -65,6 +84,8 @@ class LoginForm extends React.Component {
                   email,
                   this.maxLength
                 )}
+                value={identifier}
+                //onChange = {this.onChange}
               />
             </div>
             <div className={c.form__item}>
@@ -74,6 +95,8 @@ class LoginForm extends React.Component {
                 types={isShowPassword ? "text" : "password"}
                 placeholder="Password"
                 validate={required}
+                value={password}
+                //onChange = {this.onChange}
               />
               <span
                 className="passwordEye"
@@ -97,12 +120,10 @@ class LoginForm extends React.Component {
                 Remember me
               </label>
             </div>
-            <div className={`form__btn ${c.form__btn}`}>
-              <button
-                type="submit"
-                className={`btn`}
-                onClick={() => this.submitUserData()}
-              >
+
+            <div></div>
+            <div className={`form__btn ${c.form__btn}`}> 
+              <button type="submit" className={`btn`}>
                 Submit
               </button>
             </div>
@@ -113,7 +134,7 @@ class LoginForm extends React.Component {
   }
 }
 
-const Login = (props) => {
+const LoginPage = (props) => {
   return (
     <div className={c.login}>
       <div className={`loginTitle`}>Sign in</div>
@@ -124,7 +145,7 @@ const Login = (props) => {
         </NavLink>
       </div>
     </div>
-  );
+  );  
 };
 
-export default Login;
+export default LoginPage;
