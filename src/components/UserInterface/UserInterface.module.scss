@@ -1,0 +1,17 @@
+.authorization {
+  .authorization__logoWrap {
+    display: flex;
+    height: 48px;
+  }
+
+  .authorization__logo {
+    display: flex;
+    max-height: 100%;
+  }
+}
+
+@media only screen and (max-width: 495px) {
+  .authorization__logoWrap {
+    justify-content: center;
+  }
+}

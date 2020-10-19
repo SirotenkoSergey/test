@@ -11,7 +11,7 @@ import c from "./Login.module.scss";
 import eyeClose from "../../../assets/images/close-eye.png";
 import eyeOpen from "../../../assets/images/open-eye.png";
 import axios from 'axios';
-import { setAuthUserData } from "../../../redux/auth-reducer";
+// import { setAuthUserData } from "../../../redux/auth-reducer";
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -62,19 +62,19 @@ class LoginForm extends React.Component {
   }
 
   render() {
-    const { errors, identifier, password, isShowPassword } = this.state;
+    const {identifier, password, isShowPassword } = this.state;
     return (
       <Form onSubmit={(form) => this.onSubmit(form)}>
         {({ handleSubmit }) => (
           <form onSubmit={handleSubmit} className={c.form}>
             <div className={c.form__item}>
-              {submitError && (
+              {/* {submitError && (
                 <div className={`tooltip ${c.formError}`}>
                   <div className={`tooltip__text ${c.formError__text}`}>
                     {submitError}
                   </div>
                 </div>
-              )}
+              )} */}
               <Field
                 name="identifier"
                 component={Input}
