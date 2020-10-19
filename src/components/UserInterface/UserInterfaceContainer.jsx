@@ -1,6 +1,12 @@
-import { connect } from "react-redux";
-import UserInterface from "./UserInterface";
 
+import React from "react";
+import UserInterface from './UserInterface';
 
+class UserInterfaceContainer extends React.Component {
+     render() {
+        return ( <UserInterface {...this.props} />);
+    }
+}
 
-export default connect()(UserInterface);
+export default UserInterfaceContainer;
+
