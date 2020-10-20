@@ -9,15 +9,26 @@ import axios from 'axios';
 import { useSelector } from "react-redux";
 
 class VerifyForm extends React.Component {
-  state = {
-    successRequest: false,
-    error: {},
-    message: {}
-  };
 
-  onSubmit = (form) => {
-    userId = useSelector(state => state.auth.userId)
-    axios.post('http://18.184.124.193/api/v1/change-password', {
+  constructor(props) {
+    super(props);
+    this.state = {
+      successRequest: false,
+      error: {},
+      message: {},
+      userId: null,
+      phoneNumber: null,
+    };  
+  }
+  
+  componentDidMount() {
+    //this.setState({"userId": useSelector(state => state.user.id) });
+    this.setState({"phoneNumber": +79044444261 });
+  }
+
+  onSubmit = (form) => {  
+     
+    /*axios.post('http://18.184.124.193/api/v1/change-password', {
       ...form, userId
     }).then(res => {
       if(res.data.success) {
@@ -27,7 +38,7 @@ class VerifyForm extends React.Component {
       }
     }).catch( () => {
       this.setState({'error': { 500: 'Initial server error' } });
-    });
+    });*/
   };
 
   render() {

@@ -1,13 +1,13 @@
-import { authAPI } from "../api/api";
-
 const SET_USER_DATA = 'SET_USER_DATA';
 const REDIRECT_TO_VERIFICATION = 'SET_USER_DATA';
+const LOGOUT = 'LOGOUT';
 
 const initialState = {
-  userId: null,
-  email: null,
-  isAuth: false,
-  redirectVerification: false
+  id:           null,
+  name:         null,
+  email:        null,
+  phone:        null,
+  isAuth:       false,
 }
 
 const authReducer = (state = initialState, action) => {
@@ -16,51 +16,28 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         ...action.data,
+        isAuth: true
       }
     case REDIRECT_TO_VERIFICATION:
       return {
         ...state,
         ...action.redirectVerification,
+        isAuth: true,
       }
+    case LOGOUT: {
+      return {
+        ...{}, isAuth: false
+      }
+    }
+    
     default:
       return state;
   }
-
 }
 
 export const setRedirectVerification = () => ({type: REDIRECT_TO_VERIFICATION, redirectVerification: true});
-
-/*export const setAuthUserData = (userId, email, login) => ({type: SET_USER_DATA, data: {userId, email, login}  });
-
-export const getAuthUserData = () => (dispatch) => {
-  authAPI.authMe()
-    .then(response => {
-      if(response.data.resultCode === 0){
-        dispatch(setAuthUserData(response.userId, response.email, response.login, true))
-      }
-    })
-};
-
-export const loginUser = (email, password, remember) => (dispatch) => {
-  authAPI.login(email, password, remember)
-    .then(response => {
-      if(response.data.resultCode === 0){
-        dispatch(getAuthUserData());
-      } 
-    })
-}
-
-export const requestPassword = () => (dispatch) => {
-  authAPI.requestPassword()
-    .then(response => {
-      if(true){
-        dispatch(setRedirectVerification())
-      };
-    })
-}*/
-
-
-export const setUserData = (userId, email) => ({ type: SET_USER_DATA, data: {userId, email} })
+export const setUserData = (data) => ({ type: SET_USER_DATA, data: data });
+export const removeUserData = () => ({ type: LOGOUT });
 
 
 export default authReducer;

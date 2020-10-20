@@ -1,13 +1,23 @@
-import { combineReducers, createStore } from "redux";
+import { combineReducers, createStore, applyMiddleware } from "redux";
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+import { routerReducer  } from 'react-router-redux';
 import authReducer from "./auth-reducer";
-import loginReducer from "./login-reducer";
+import errorReduser from "./error-reduser";
+import loginReduser from "./login-reduser";
 
 const reducers = combineReducers({
-  login: loginReducer,
   auth: authReducer,
+  error: errorReduser,
+  login: loginReduser,
+  routing: routerReducer
 });
 
-const store = createStore(reducers);
+
+const store = createStore( 
+  reducers, 
+  composeWithDevTools(applyMiddleware(thunk))
+);
 window.store = store;
 
 export default store;
