@@ -22,12 +22,17 @@ class LoginForm extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        error: {},
+        validationError: {},
+        submitErrors: [],
         message: {},
         isShowPassword: false,
       };
       this.onSubmit = this.onSubmit.bind(this);
       this.handlers = createHandlers(this.props.dispatch);
+    }
+
+    componentDidMount() {
+      
     }
     
     toggleShowNewPassword = () => {
@@ -37,22 +42,21 @@ class LoginForm extends React.Component {
   
     composeValidators = (...validators) => (value) =>
       validators.reduce(
-        (error, validator) => error || validator(value),
+        (validationError, validator) => validationError || validator(value),
         undefined
       );
   
     maxLength = maxLengthControl(60);
   
-    onChange = (e) => {
-      this.setState({ [e.target.name]: e.target.value })
-    }
-  
     onSubmit = (form) => {
         this.handlers.sendForm(form.identifier, form.password, false);
+        setTimeout(() => {
+          this.setState({'submitErrors': window.store.getState().error.errors});
+        },1000);
     }
   
     render() {
-      const { errors, identifier, password, isShowPassword } = this.state;
+      const { identifier, password, isShowPassword, message, submitErrors } = this.state;
       
       return (
         <Form onSubmit={(form) => {this.onSubmit(form)} } >
@@ -69,7 +73,6 @@ class LoginForm extends React.Component {
                     this.maxLength
                   )}
                   value={identifier}
-                  //onChange = {this.onChange}
                 />
               </div>
               <div className={c.form__item}>
@@ -80,7 +83,6 @@ class LoginForm extends React.Component {
                   placeholder="Password"
                   validate={required}
                   value={password}
-                  //onChange = {this.onChange}
                 />
                 <span
                   className="passwordEye"
@@ -100,7 +102,13 @@ class LoginForm extends React.Component {
                   Remember me
                 </label>
               </div>
-              
+              <div>
+                <ul>
+                  {submitErrors.map((error) =>
+                    <li key={Object.keys(error)}>{Object.values(error)}</li>
+                  )}  
+                </ul>
+              </div>
               <div className={`form__btn ${c.form__btn}`}> 
                 <button type="submit" className={`btn`}>
                   Submit
