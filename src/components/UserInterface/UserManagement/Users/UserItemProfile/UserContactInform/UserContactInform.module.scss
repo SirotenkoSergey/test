@@ -1,0 +1,17 @@
+.contact_inform {
+  .contact_inform__wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .contact_inform__form_wrap{
+    margin-top: 20px;
+  }
+
+  .contact_inform__title {
+    color: #000000;
+    font-family: "Roboto Medium";
+    font-size: 16px;
+  }
+}

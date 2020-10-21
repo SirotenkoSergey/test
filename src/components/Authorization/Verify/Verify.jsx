@@ -16,7 +16,7 @@ class VerifyForm extends React.Component {
   };
 
   onSubmit = (form) => {
-    userId = useSelector(state => state.auth.userId)
+    const userId = useSelector(state => state.auth.userId)
     axios.post('http://18.184.124.193/api/v1/change-password', {
       ...form, userId
     }).then(res => {

@@ -1,0 +1,45 @@
+.form {
+  .form__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #e5e5e5;
+    height: 42px;
+    padding-left: 35px;
+  }
+
+  .form__item:last-child {
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .form__title {
+    color: #666c72;
+    font-family: "Roboto Medium";
+    font-size: 16px;
+    line-height: 22px;
+    max-width: 250px;
+    width: 100%;
+  }
+
+  .form__input_wrap {
+    max-width: 345px;
+    width: 100%;
+  }
+
+  .form__input {
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    height: 42px;
+    color: #222222;
+    font-family: "Roboto Medium";
+    font-size: 14px;
+    line-height: 22px;
+    outline: none;
+  }
+
+  .form__input:focus {
+    border-bottom: 2px solid #222;
+  }
+
+}

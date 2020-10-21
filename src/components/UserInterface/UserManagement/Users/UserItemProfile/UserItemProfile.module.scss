@@ -1,0 +1,113 @@
+.user {
+  .user__contact_inform{
+    margin-top: 90px;
+  }
+}
+
+.profile {
+  display: flex;
+
+  .profile__avatar_block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile__avatar_wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+  }
+
+  .profile__avatar {
+    max-height: 100%;
+    display: flex;
+    border-radius: 50%;
+  }
+
+  .profile__avatar_btn {
+    color: #2c7bd0;
+    margin-top: 2px;
+    font-size: 12px;
+    line-height: 22px;
+    font-family: 'Roboto Light';
+  }
+
+  .profile__avatar_btn:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .profile__info {
+    margin-left: 37px;
+  }
+
+  .profile__name {
+    color: #222222;
+    font-family: 'Roboto Medium';
+    font-size: 20px;
+    line-height: 22px;
+    position: relative;
+  }
+
+  .profile__contact_inform {
+    margin-top: 10px;
+  }
+
+  .profile__email a,
+  .profile__phone a{
+    color: #000000;
+    font-family: 'Roboto';
+    font-size: 14px;
+    line-height: 22px;
+    position: relative;
+    margin-left: 19px;
+    text-decoration: none;
+  }
+
+  .profile__email a:hover,
+  .profile__phone a:hover{
+    text-decoration: underline;
+  }
+
+  .profile__email a::before {
+    position: absolute;
+    content: '';
+    width: 13px;
+    height: 9px;
+    background: url('../../../../../assets/images/mail.png');
+    left: -19px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .profile__phone a::before {
+    position: absolute;
+    content: '';
+    width: 13px;
+    height: 12px;
+    background: url('../../../../../assets/images/phone.png');
+    left: -19px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .profile__profile_status {
+    width: 80px;
+    height: 18px;
+    border: 1px solid #dddddd;
+    background-color: #ffffff;
+    position: absolute;
+    border-radius: 4px;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777777;
+    font-family: 'Roboto';
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
