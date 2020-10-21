@@ -6,8 +6,10 @@ import UserInterfaceContainer from './components/UserInterface/UserInterfaceCont
 const App = (props) => {
   return (
     <div className="App" >
-      <UserInterfaceContainer />
-      {/* <Authorization /> */}
+      <div className="container">
+        <UserInterfaceContainer />
+        {/* <Authorization /> */}
+      </div>
     </div>
   );
 }
