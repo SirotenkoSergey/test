@@ -7,6 +7,7 @@ import loginReducer from "./login-reducer";
 import userManagementReducer from "./user-management-reducer";
 import errorReduser from "./error-reduser";
 import loginReduser from "./login-reduser";
+import userManagementReducer from "./user-management-reducer";
 
 
 const reducers = combineReducers({
@@ -15,6 +16,8 @@ const reducers = combineReducers({
   error: errorReduser,
   login: loginReduser,
   routing: routerReducer
+  userManagement: userManagementReducer,
+
 });
 
 
