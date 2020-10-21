@@ -20,25 +20,8 @@ class VerifyForm extends React.Component {
       phoneNumber: null,
     };  
   }
-  
-  componentDidMount() {
-    //this.setState({"userId": useSelector(state => state.user.id) });
-    this.setState({"phoneNumber": +79044444261 });
-  }
-
   onSubmit = (form) => {  
-     
-    /*axios.post('http://18.184.124.193/api/v1/change-password', {
-      ...form, userId
-    }).then(res => {
-      if(res.data.success) {
-
-      }else{
-        this.setState({'error': res.data.error });
-      }
-    }).catch( () => {
-      this.setState({'error': { 500: 'Initial server error' } });
-    });*/
+    console.log(window.store.getState().auth)
   };
 
   render() {
