@@ -5,8 +5,8 @@ import { required } from "../../../utils/validation/validation";
 import { Input } from "../FormControl/FormControl";
 import c from "./Verify.module.scss";
 import arrow from "../../../assets/images/arrow-left.png";
+import { GoogleReCaptcha } from 'react-google-recaptcha-v3';
 import axios from 'axios';
-import { useSelector } from "react-redux";
 
 class VerifyForm extends React.Component {
 
@@ -18,13 +18,25 @@ class VerifyForm extends React.Component {
       message: {},
       userId: null,
       phoneNumber: null,
+      setToken: null,
     };  
   }
   onSubmit = (form) => {  
-    console.log(window.store.getState().auth)
+    axios.post('http://18.184.124.193/api/v1/verify', {
+      user_id: localStorage.getItem('user_id'), code: form.verify
+    }).then(res => {
+      if(res.data.success) {
+        window.location = '/';
+      } else {
+        this.setState({'error':  res.data.errors});
+      }
+    }).catch(err => {
+      this.setState({'error': { 500: 'Initial server error'} });
+    });
   };
 
   render() {
+    const { error, message } = this.state;
     if (this.state.successRequest) {
       return <Redirect to="/login" />;
     }
@@ -39,6 +51,12 @@ class VerifyForm extends React.Component {
                 placeholder="Enter security code"
                 validate={required}
               />
+            </div>
+            <div>
+              <GoogleReCaptcha onVerify={ (token) => { this.setState({'setToken': token}) } } />
+            </div>
+            <div>
+              <p>{Object.values(error)}</p> 
             </div>
             <div className={c.form__btn}>
               <button type="submit" className={`btn`}>

@@ -30,10 +30,6 @@ class LoginForm extends React.Component {
       this.onSubmit = this.onSubmit.bind(this);
       this.handlers = createHandlers(this.props.dispatch);
     }
-
-    componentDidMount() {
-      
-    }
     
     toggleShowNewPassword = () => {
       const { isShowPassword } = this.state;

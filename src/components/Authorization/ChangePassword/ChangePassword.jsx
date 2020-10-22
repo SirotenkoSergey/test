@@ -6,12 +6,17 @@ import { Password } from "../FormControl/FormControl";
 import c from "./ChangePassword.module.scss";
 import arrow from "../../../assets/images/arrow-left.png";
 import eye from "../../../assets/images/eye.png";
+import axios from 'axios';
+
 
 class ChangePasswordForm extends React.Component {
   state = {
     isShowNewPassword: false,
     isShowConfirmNewPassword: false,
     isRequestToLogin: false,
+    error: {},
+    message: {},
+    token: null,
   };
 
   toggleShowNewPassword = () => {
@@ -30,12 +35,34 @@ class ChangePasswordForm extends React.Component {
       undefined
     );
 
-  onSubmit = (value) => {
-    console.log(value);
-    this.setState({ isRequestToLogin: true });
+  onSubmit = (form) => {
+    let token = window.location.search.split('?')[1].split('=')[1];
+    if(!token) {
+      alert('You are not authorized');
+      return;
+    }
+    console.log(form, token);
+    axios.post('http://18.184.124.193/api/v1/reset-password', {
+      password: form.newPassword,
+      password_confirmation: form.confirmNewPassword, 
+      token: token
+    }).then(res => {
+      if(res.data.success) {
+        this.setState({ 'message': 'Your password has been successfully changed' });
+        this.setState({ 'error': {} });
+        setTimeout(() => {
+          window.location = '/login';
+        }, 5000);
+      }else{
+        this.setState({'error':  res.data.errors});
+      } 
+    }).catch(err => {
+      this.setState({'error': { 500: 'Initial server error'} });
+    });
   };
 
   render() {
+    const { error, message } = this.state;
     if (this.state.isRequestToLogin) {
       return <Redirect to="/login" />;
     }
@@ -83,6 +110,10 @@ class ChangePasswordForm extends React.Component {
               >
                 <img src={eye} alt="" />
               </span>
+            </div>
+            <div>
+              <p>{Object.values(error)}</p> 
+              <p>{Object.values(message)}</p> 
             </div>
             <div className={c.form__btn}>
               <button type="submit" className={`btn`}>

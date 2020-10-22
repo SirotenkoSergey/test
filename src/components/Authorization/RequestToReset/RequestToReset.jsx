@@ -5,39 +5,28 @@ import { email, required } from "../../../utils/validation/validation";
 import { Input } from "../FormControl/FormControl";
 import c from "./RequestToReset.module.scss";
 import arrow from "../../../assets/images/arrow-left.png";
-import ReCAPTCHA from "react-google-recaptcha";
 import axios from 'axios';
+import { GoogleReCaptcha } from 'react-google-recaptcha-v3';
 
-const recaptchaRef = React.createRef();
+
 class RequestToResetForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isRequestToLogin: false,
+      isVerified: false,
+      setToken: null,
       error: {},
-      message: {}
+      message: {},
     }; 
   }
 
-  /*reCaptchaVerify = (e) => {
-    e.preventDefault();
-     this.grecaptcha.ready(function() {
-      this.grecaptcha.execute('6LcPUdcZAAAAAHkgp3H7Ce5YUeHSLFTy1QYkQY4J', {action: 'submit'}).then(function(token) {
-        console.log(token);
-      });
-    });
-  }*/
-
-  onChange = (value) => {
-    console.log("Captcha value:", value);
-  } 
-
   onSubmit = (form) => {
-
+    this.setState({ 'error': {} });
     axios.post('http://18.184.124.193/api/v1/forgot-password', {
-      ...form, recaptcha: recaptchaRef.current.getValue()
+      ...form, recaptcha: this.state.setToken
     }).then(res => {
-      res.data.success ? this.setState({ 'message': res.data.messages }) : this.setState({'error':  res.data.errors});
+      res.data.success ? this.setState({ 'message': 'You have been sent a link to reset your password by email' }) : this.setState({'error':  res.data.errors});
     }).catch(err => {
       this.setState({'error': { 500: 'Initial server error'} });
     });
@@ -49,12 +38,12 @@ class RequestToResetForm extends React.Component {
       undefined
     );
 
-
   render() {
+    const { error, message } = this.state;
     if (this.state.isRequestToLogin) {
       return <Redirect to="/login" />;
     }
-    return (
+    return (  
       <Form onSubmit={this.onSubmit}>
         {({ handleSubmit }) => (
           <form onSubmit={handleSubmit} className={c.form}>
@@ -67,10 +56,11 @@ class RequestToResetForm extends React.Component {
               />
             </div>
             <div>
-              <ReCAPTCHA
-                ref={recaptchaRef}
-                sitekey="6Lf6FdgZAAAAANSZJMa6YoHTo1gRDcJEUjMN1a89"
-              />
+              <GoogleReCaptcha onVerify={ (token) => { this.setState({'setToken': token}) }}  />
+            </div>
+            <div>
+              <p>{Object.values(error)}</p> 
+              <p>{Object.values(message)}</p> 
             </div>
             <div className={c.form__btn}>
               <button type="submit" className={`btn`}>

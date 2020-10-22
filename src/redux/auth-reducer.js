@@ -4,10 +4,13 @@ const LOGOUT = 'LOGOUT';
 
 const initialState = {
   id:           null,
-  name:         null,
+  first_name:   null,
+  last_name:    null,
   email:        null,
   phone:        null,
   isAuth:       false,
+  is_active:    null,
+  avatar:       null
 }
 
 const authReducer = (state = initialState, action) => {
